@@ -2,7 +2,7 @@ import React from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import Logo from '../../assets/Logo.png'
 import PrivateRoutes from '../Authentication/PrivateRoutes'
-import { FaCartShopping } from 'react-icons/fa6'
+import { FaCartShopping, FaMoon, FaSun } from 'react-icons/fa6'
 import { CiLogout } from 'react-icons/ci'
 import { useSelector, useDispatch } from 'react-redux'
 import { toggleTheme } from '../../Store/TheameSlice'
@@ -24,7 +24,7 @@ function Navbar() {
   }
 
   return (
-    <div className='bg-[#7a364d] text-white p-2 text-2xl'>
+    <div className='bg-[#7a364d] text-white dar p-2 text-2xl'>
       <div>
         <ul className='flex justify-around items-center'>
           <li className='w-14'>
@@ -45,13 +45,12 @@ function Navbar() {
             </li>
           )}
 
-          {/* 🌙 Theme Toggle */}
           <li className='cursor-pointer'>
             <button
               onClick={handleToggleTheme}
-              className='text-sm px-3 py-1 rounded-md bg-gray-200 text-black hover:bg-gray-300 dark:bg-gray-700 dark:text-white dark:hover:bg-gray-600 transition'
+              className='text-sm px-3 py-1 rounded-md '
             >
-              {theme === 'light' ? '🌙 Dark' : '☀️ Light'}
+              <span >{theme === 'light' ? <FaMoon size={24}/> : <FaSun color='yellow' size={24}/>}</span>
             </button>
           </li>
 

@@ -13,7 +13,7 @@ function Home() {
   const navigate = useNavigate()
   const cartItem = useSelector((state) => state.cart)
 
-  const itemsPerPage = 10
+  const itemsPerPage = 7;
   const [page, setPage] = useState(1)
   const totalPages = Math.ceil(data.length / itemsPerPage)
 
@@ -43,15 +43,15 @@ function Home() {
         {data.slice((page - 1) * itemsPerPage, page * itemsPerPage).map((product) => (
           <div
             key={product.id}
-            className="bg-white shadow-lg rounded-2xl overflow-hidden border hover:shadow-2xl transition cursor-pointer"
+            className="bg-white shadow-lg rounded-2xl overflow-hidden border hover:shadow-2xl transition cursor-pointer shadow-blue-400 "
             onClick={(e) => handleClick(e, product)}
           >
             <img
               src={product.Image}
               alt={product.title}
-              className="h-[220px] w-full object-fill"
+              className="h-[220px] w-full object-contain"
             />
-            <div className="p-4 bg-[#dee4ff] dark:bg-[#1a1c2c]">
+            <div className="p-4 bg-[#8b9ef5] dark:bg-[#1a1c2c]">
               <h3 className="text-xl font-semibold h-14 text-gray-800 dark:text-white">{product.title}</h3>
               <p className="text-indigo-600 font-bold text-lg mt-2">$ {product.price}</p>
               <p className="text-yellow-600 font-semibold">⭐ {product.rating} / 5</p>
@@ -59,14 +59,14 @@ function Home() {
               {cartItem.find(item => item.id === product.id) ? (
                 <button
                   onClick={() => dispatch(removeFromCart(product.id))}
-                  className="mt-4 w-full bg-red-500 text-white py-2 rounded-lg hover:bg-red-700 transition duration-300 text-lg"
+                  className="mt-4 w-full bg-red-500 text-white dark:text-gray-400 py-2 dark:bg-red-600 rounded-lg hover:bg-red-700 transition duration-300 text-2xl"
                 >
                   Remove from Cart
                 </button>
               ) : (
                 <button
                   onClick={() => handleAddToCart(product)}
-                  className="mt-4 w-full bg-gradient-to-r from-green-400 to-blue-500 text-white py-2 rounded-lg hover:from-green-600 hover:to-blue-700 transition duration-300 text-lg"
+                  className="mt-4 w-full text-2xl bg-gradient-to-r from-green-300 to-blue-500 text-white dark:text-gray-800 py-2 rounded-lg hover:from-green-600 hover:to-blue-700 transition duration-300 "
                 >
                   Add To Cart
                 </button>

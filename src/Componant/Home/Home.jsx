@@ -26,9 +26,9 @@ function Home() {
     <div className='flex flex-col justify-center gap-10 w-full mt-10 items-center transition-colors duration-300'>
 
       {/* Hero Section */}
-      <section className='flex flex-col md:flex-row bg-gradient-to-r from-[#f2cccf] to-[#f66e79] 
-        dark:from-gray-800 dark:to-gray-900 w-[90%] rounded-3xl shadow-xl p-8 items-center 
-        gap-10 text-gray-700 dark:text-white'>
+      <section className='flex flex-col md:flex-row bg-gradient-to-r from-[#f2cccf] to-[rgb(246,110,121)] 
+        dark:from-gray-400 dark:to-gray-800 w-[90%] rounded-3xl shadow-xl p-8 items-center 
+        gap-10 text-gray-700 dark:text-white '>
 
         {/* Text Content */}
         <motion.div
@@ -71,7 +71,7 @@ function Home() {
           {categories.map((category, index) => (
             <li
               key={index}
-              className='bg-yellow-500 dark:bg-yellow-600 text-white py-4 px-3 
+              className='bg-yellow-500 dark:bg-yellow-600 text-gray-700 py-4 px-3 dark:text-white 
               rounded-xl shadow-md font-semibold text-lg cursor-pointer min-w-[120px] 
               flex items-center justify-center gap-2 transition-colors duration-300'
             >
