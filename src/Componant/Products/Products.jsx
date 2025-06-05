@@ -1,30 +1,49 @@
-import React, { useState } from 'react'
-import GetProducts from '../../GetProducts'
+import React, { useEffect, useMemo, useState } from 'react'
+import useGetProducts from '../../GetProducts';
+
 import { useDispatch, useSelector } from 'react-redux'
 import { addToCart, removeFromCart } from '../../Store/CartSlice'
 import { toast } from 'react-toastify'
 import Skeleton from '../Common/Skeleton'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { FaCaretLeft, FaCaretRight } from 'react-icons/fa6'
+import { SuccessMessage } from '../Common/SuccessMessage';
 
-function Home() {
-  const { data, loading } = GetProducts()
+const Products = () => {
+  const { data, loading } = useGetProducts()
   const dispatch = useDispatch()
   const navigate = useNavigate()
+  const { category } = useParams()
+
+  const [productCategory, setProductCategory] = useState("all")
   const cartItem = useSelector((state) => state.cart)
 
-  const itemsPerPage = 7;
+  const itemsPerPage = 7
   const [page, setPage] = useState(1)
-  const totalPages = Math.ceil(data.length / itemsPerPage)
+
+  useEffect(() => {
+    if (category) {
+      const cat = category.split(":")[1];
+      if (cat !== productCategory) {
+        setProductCategory(cat);
+      }
+    } else {
+      setProductCategory("all");
+    }
+  }, [category]);
+
+  const filterData = useMemo(() => {
+    if (productCategory === "all") {
+      return data
+    }
+    return data.filter(item => item.category === productCategory);
+  }, [data, productCategory]);
+
+  const totalPages = Math.ceil(filterData.length / itemsPerPage);
 
   const handleAddToCart = (product) => {
-    const isInCart = cartItem.find(item => item.id === product.id)
-    if (isInCart) {
-      toast.info("Product already in cart")
-    } else {
-      dispatch(addToCart(product))
-      toast.success("Added to cart")
-    }
+    dispatch(addToCart(product));
+    SuccessMessage("Added To Cart!")
   }
 
   const handleClick = (e, product) => {
@@ -38,12 +57,12 @@ function Home() {
   }
 
   return (
-    <section className='min-h-screen bg-white dark:bg-gray-900 py-12'>
+    <section className='min-h-screen transition delay-700 bg-white dark:bg-gray-900 py-12'>
       <div className='max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 px-4'>
-        {data.slice((page - 1) * itemsPerPage, page * itemsPerPage).map((product) => (
+        {filterData.slice((page - 1) * itemsPerPage, page * itemsPerPage).map((product) => (
           <div
             key={product.id}
-            className="bg-white shadow-lg rounded-2xl overflow-hidden border hover:shadow-2xl transition cursor-pointer shadow-blue-400 "
+            className="bg-white shadow-lg rounded-2xl overflow-hidden border hover:shadow-2xl transition cursor-pointer shadow-blue-400"
             onClick={(e) => handleClick(e, product)}
           >
             <img
@@ -66,7 +85,7 @@ function Home() {
               ) : (
                 <button
                   onClick={() => handleAddToCart(product)}
-                  className="mt-4 w-full text-2xl bg-gradient-to-r from-green-300 to-blue-500 text-white dark:text-gray-800 py-2 rounded-lg hover:from-green-600 hover:to-blue-700 transition duration-300 "
+                  className="mt-4 w-full text-2xl bg-gradient-to-r from-green-300 to-blue-500 text-white dark:text-gray-800 py-2 rounded-lg hover:from-green-600 hover:to-blue-700 transition duration-300"
                 >
                   Add To Cart
                 </button>
@@ -109,4 +128,4 @@ function Home() {
   )
 }
 
-export default Home
+export default Products

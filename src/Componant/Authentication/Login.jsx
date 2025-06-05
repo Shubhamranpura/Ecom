@@ -5,6 +5,8 @@ import { useNavigate } from 'react-router-dom'
 import { FaRegEye, FaRegEyeSlash } from 'react-icons/fa6'
 import { motion } from "motion/react"
 import { toast } from 'react-toastify'
+import { SuccessMessage } from '../Common/SuccessMessage'
+import { ErrorMessage } from '../Common/ErrorMessage'
 
 function Login() {
   const navigate = useNavigate()
@@ -33,11 +35,11 @@ function Login() {
     if (authenticated) {
       const token = btoa(`${userEmail}${userPassword}`)
       localStorage.setItem("Token", JSON.stringify(token))
-      toast.success("Successfully Login!...")
+      SuccessMessage("Successfully Login!...")
 
       navigate("/")
     } else {
-      toast.error("User Email or Password is Not Valid")
+      ErrorMessage("User Email or Password is Not Valid")
     }
   }
 

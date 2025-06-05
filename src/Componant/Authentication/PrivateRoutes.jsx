@@ -12,7 +12,7 @@ function PrivateRoutes({children}) {
     checkAuth()
   }, [])
   if(unauthenticated){
-    return <Navigate to={"/Login"} />
+    return <Navigate to={"/login"} />
   }
   return children
 }

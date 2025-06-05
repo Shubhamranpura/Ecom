@@ -5,7 +5,7 @@ import PrivateRoutes from '../Authentication/PrivateRoutes'
 import { FaCartShopping, FaMoon, FaSun } from 'react-icons/fa6'
 import { CiLogout } from 'react-icons/ci'
 import { useSelector, useDispatch } from 'react-redux'
-import { toggleTheme } from '../../Store/TheameSlice'
+import { toggleTheme } from '../../Store/TheamSlice'
 
 function Navbar() {
   const navigate = useNavigate()
@@ -35,7 +35,7 @@ function Navbar() {
 
           {token && (
             <li>
-              <Link to={"/products"}>Products</Link>
+              <Link to={"/products/:all"}>Products</Link>
             </li>
           )}
 
@@ -50,7 +50,7 @@ function Navbar() {
               onClick={handleToggleTheme}
               className='text-sm px-3 py-1 rounded-md '
             >
-              <span >{theme === 'light' ? <FaMoon size={24}/> : <FaSun color='yellow' size={24}/>}</span>
+              <span >{theme === 'light' ? <FaMoon size={24} /> : <FaSun color='yellow' size={24} />}</span>
             </button>
           </li>
 

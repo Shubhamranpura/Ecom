@@ -16,7 +16,6 @@ const theameSlice = createSlice({
     setTheme: (state, action) => {
       state.mode = action.payload
       localStorage.setItem('theme', state.mode);
-
     }
   }
 });

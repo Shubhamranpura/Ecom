@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { matchPath, matchRoutes, useLocation, useParams } from 'react-router-dom';
 import { addToCart, removeFromCart } from '../../Store/CartSlice';
 import { toast } from 'react-toastify';
 import { FaArrowLeft } from 'react-icons/fa';
@@ -13,6 +13,7 @@ const ProductDetials = () => {
   const [imageNum, setImageNum] = useState(0);
   const [loading, setLoading] = useState(true)
   const dispatch = useDispatch()
+  const location = useLocation()
 
   const cartItem = useSelector((state) => state.cart)
   const theam = useSelector((state) => state.theme.mode)
@@ -32,17 +33,20 @@ const ProductDetials = () => {
       }
     };
 
+
+
     fetchData(id.split(":")[1]);
   }, [id]);
 
-  console.log(productData)
+  // console.log(productData)
+
   if (loading) {
     return <ProductDetailSkeleton />
   }
 
 
   return (
-    <div className="flex flex-col justify-center items-center min-h-[88.5vh] ">
+    <div className="flex flex-col animate-appear justify-center items-center min-h-[88.5vh] ">
 
       <div className='flex w-full'>
         <button
@@ -52,10 +56,10 @@ const ProductDetials = () => {
         </button>
       </div>
 
-      <section className="grid grid-cols-1 md:grid-cols-3 gap-6 p-6 w-[95%] md:w-[90%] bg-white dark:bg-gray-800 dark:bg-dark-card rounded-2xl shadow-lg shadow-blue-500">
+      <section className="grid grid-cols-1 md:grid-cols-3 gap-6 p-6 w-[95%] md:w-[90%] bg-white dark:bg-gray-800 dark:bg-dark-card rounded-2xl shadow-lg  shadow-blue-500">
 
         {/* Image section */}
-        <div className="flex flex-col items-center justify-center">
+        <div className="flex flex-col  items-center justify-center">
           {productData.images === null ? <></> : <img
             src={productData.images?.[imageNum]}
             alt={productData.title}
@@ -74,7 +78,7 @@ const ProductDetials = () => {
         </div>
 
         {/* Product details */}
-        <div className="text-gray-800 dark:text-gray-200 font-semibold flex flex-col gap-3 justify-center">
+        <div className="text-gray-800  dark:text-gray-200 font-semibold flex flex-col gap-3 justify-center">
           <h1 className="text-3xl font-bold text-pink-600 dark:text-pink-400">{productData.title}</h1>
           <p><strong>Brand:</strong> {productData.brand || "Not Specified"}</p>
           <p><strong>Rating:</strong> ⭐ {productData.rating} / 5</p>

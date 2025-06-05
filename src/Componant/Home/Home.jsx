@@ -9,18 +9,22 @@ import {
 import { useNavigate } from 'react-router-dom'
 
 const categories = [
-  { name: "Children", icon: <FaChild /> },
-  { name: "Food", icon: <FaUtensils /> },
-  { name: "Accessories", icon: <FaTshirt /> },
-  { name: "Cutlery", icon: <FaCut /> },
-  { name: "Perfumes", icon: <FaSprayCan /> },
+  { name: "Beauty", icon: <FaCut /> },
+  { name: "Fragrances", icon: <FaSprayCan /> },
   { name: "Groceries", icon: <FaShoppingBasket /> },
   { name: "Furniture", icon: <FaCouch /> },
-  { name: "Pet Food", icon: <FaDog /> }
 ]
 
 function Home() {
   const navigate = useNavigate()
+
+  
+  const handleFilter = (e) =>{
+    const catagory = e.target.innerText.charAt(0).toLowerCase() + e.target.innerText.slice(1);
+    navigate(`products/:${catagory}`)
+  }
+
+  
 
   return (
     <div className='flex flex-col justify-center gap-10 w-full mt-10 items-center transition-colors duration-300'>
@@ -66,7 +70,7 @@ function Home() {
         <h2 className='text-2xl font-bold text-[#333] dark:text-white mb-4'>Shop by Category</h2>
         <ul
           className='grid grid-cols-1 md:grid-cols-2 py-5 gap-4 homeproducts'
-          onClick={() => navigate("/products")}
+          onClick={handleFilter}
         >
           {categories.map((category, index) => (
             <li

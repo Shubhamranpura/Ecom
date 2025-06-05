@@ -1,12 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
 import cartReducer from "./CartSlice"
-import theameSlice from "./TheameSlice"
+import theameSlice from "./TheamSlice"
 
 
 const store = configureStore({
-  reducer:{
+  reducer: {
     cart: cartReducer,
-    theme : theameSlice
+    theme: theameSlice
   }
 })
 
