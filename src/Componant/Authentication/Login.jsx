@@ -7,6 +7,7 @@ import { motion } from "motion/react"
 import { toast } from 'react-toastify'
 import { SuccessMessage } from '../Common/SuccessMessage'
 import { ErrorMessage } from '../Common/ErrorMessage'
+import { LOGIN_ERROR, SUCCESSFULLY_LOGIN } from '../Common/message'
 
 function Login() {
   const navigate = useNavigate()
@@ -19,11 +20,11 @@ function Login() {
     let newError = {}
 
     if (!userEmail || !userEmail.includes('@gmail.com')) {
-      newError.emailError = "Enter a valid Email"
+      newError.emailError = LOGIN_ERROR.EMAIL_ERROR
     }
 
     if (!userPassword || userPassword.length < 3) {
-      newError.passwordError = "Password must be at least 3 characters"
+      newError.passwordError = LOGIN_ERROR.PASSWOED_ERROR
     }
 
     setError(newError)
@@ -35,11 +36,11 @@ function Login() {
     if (authenticated) {
       const token = btoa(`${userEmail}${userPassword}`)
       localStorage.setItem("Token", JSON.stringify(token))
-      SuccessMessage("Successfully Login!...")
+      SuccessMessage(SUCCESSFULLY_LOGIN)
 
       navigate("/")
     } else {
-      ErrorMessage("User Email or Password is Not Valid")
+      ErrorMessage(LOGIN_ERROR.CREDENTIAL_ERROR)
     }
   }
 

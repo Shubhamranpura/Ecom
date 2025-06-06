@@ -8,6 +8,7 @@ import Skeleton from '../Common/Skeleton'
 import { useNavigate, useParams } from 'react-router-dom'
 import { FaCaretLeft, FaCaretRight } from 'react-icons/fa6'
 import { SuccessMessage } from '../Common/SuccessMessage';
+import { ADD_TO_CART } from '../Common/message';
 
 const Products = () => {
   const { data, loading } = useGetProducts()
@@ -42,8 +43,9 @@ const Products = () => {
   const totalPages = Math.ceil(filterData.length / itemsPerPage);
 
   const handleAddToCart = (product) => {
+    // console.log(product)
     dispatch(addToCart(product));
-    SuccessMessage("Added To Cart!")
+    SuccessMessage(ADD_TO_CART)
   }
 
   const handleClick = (e, product) => {
